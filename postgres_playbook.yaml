@@ -1,0 +1,32 @@
+
+- name: Install NFS client
+    yum:
+     name: 
+      - nfs-utils
+      - nfs-utils-lib
+     state: installed
+
+- name: Mount NFS share with DB backup
+    mount:
+      path: /mnt
+      src: 10.31.135.106:/dbbackup
+      fstype: NFS
+      opts: ro,noauto
+      state: present
+
+- name: Install Postgres
+    yum:
+      name: 
+        - postgresql-server
+        - postgresql
+        - postgresql-contrib
+      state: installed
+
+
+
+
+
+
+
+
+

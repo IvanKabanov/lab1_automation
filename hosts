@@ -1,0 +1,2 @@
+[postgres-servers]
+10.31.135.108 ansible_user=ansible

@@ -1,0 +1,15 @@
+
+#- name: Setup YUM CentOS 7.5 repo
+#  include_tasks: rhel_repo.yml
+
+  - name: Setup YUM CentOS 7.5 repo
+    yum_repository:
+      baseurl: https://10.31.135.106/repo
+      enabled: yes
+      gpgcheck: no
+      name: centos7.5-repo-ansctl
+      repo_gpgcheck: no
+      description: centos7.5-repo
+      sslverify: no
+    when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "6")
+ 
