@@ -1,3 +1,4 @@
+ 
   - name: Setup YUM CentOS 7.5 repo
     yum_repository:
       baseurl: http://10.31.135.106/repo
@@ -7,11 +8,26 @@
       repo_gpgcheck: no
       description: centos7.5-repo
       sslverify: no
-    when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
+    when: internet_access == False
+
+
+  - name: Add Postgres repo from Web if you have Internet Access
+    yum_repository:
+      baseurl: https://download.postgresql.org/pub/repos/yum/{{postgresql_version}}/redhat/rhel-latest-x86_64/
+      enabled: yes
+      gpgcheck: no
+      name: Postgres-WEB-Repo 
+      repo_gpgcheck: no
+      description: Postgres WEB repo
+      sslverify: no
+    when: internet_access == True
 
 
   - name: Disable firewalld service
-    service:
+    systemd:
       name: firewalld
       enabled: no
       state: stopped
+
+
+
