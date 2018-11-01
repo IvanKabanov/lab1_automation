@@ -8,19 +8,7 @@
       repo_gpgcheck: no
       description: centos7.5-repo
       sslverify: no
-    when: internet_access == False
-
-
-  - name: Add Postgres repo from Web if you have Internet Access
-    yum_repository:
-      baseurl: https://download.postgresql.org/pub/repos/yum/{{postgresql_version}}/redhat/rhel-latest-x86_64/
-      enabled: yes
-      gpgcheck: no
-      name: Postgres-WEB-Repo 
-      repo_gpgcheck: no
-      description: Postgres WEB repo
-      sslverify: no
-    when: internet_access == True
+#    when: internet_access == False
 
 
   - name: Disable firewalld service
@@ -28,6 +16,14 @@
       name: firewalld
       enabled: no
       state: stopped
+
+
+  - name: Install NFS client
+    yum:
+     name: 
+      - nfs-utils
+      #- nfs-utils-lib
+     state: installed
 
 
 

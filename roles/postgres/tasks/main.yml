@@ -1,0 +1,39 @@
+
+  - name: Add Postgres repo from Web if you have Internet Access
+    yum_repository:
+      baseurl: https://download.postgresql.org/pub/repos/yum/{{postgresql_version}}/redhat/rhel-latest-x86_64/
+      enabled: yes
+      gpgcheck: no
+      name: Postgres-WEB-Repo 
+      repo_gpgcheck: no
+      description: Postgres WEB repo {{postgresql_version}}
+      sslverify: no
+
+
+  - name: Install Postgres
+    yum:
+      name: 
+        - postgresql94-server
+        - postgresql94
+        - postgresql94-contrib
+      state: installed
+    when: postgresql_version == 9.4
+
+
+  - name: Add Postgres bin dir to system-wide $PATH.
+    copy:
+      dest: /etc/profile.d/custom-path.sh
+      content: 'PATH=$PATH:/usr/pgsql-{{ postgresql_version }}/bin/'
+
+
+  - name: create data cluster
+    command: postgresql94-setup initdb 
+    #become: yes
+    #become_user: postgres
+    #become_method: sudo
+    #register: postgres_initdb_done
+
+
+
+
+

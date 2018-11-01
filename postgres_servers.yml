@@ -1,6 +1,6 @@
 - hosts: postgres-servers
   roles:
-     - common
-   #  - postgres
+   #  - common
+     - postgres
   become: yes
   become_method: sudo
